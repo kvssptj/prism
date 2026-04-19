@@ -1,0 +1,19 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Scenarios (generated at runtime)
+scenarios/*.json
+scenarios/.queue/
+scenarios/.personas.json
+
+# macOS
+.DS_Store
+
+# Editor
+.claude/
+.superpowers/
