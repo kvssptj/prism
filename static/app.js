@@ -283,14 +283,37 @@ async function loadScenarioList() {
       li.dataset.filename = s.filename;
       const timeLabel = formatRelativeTime(s.filename);
       li.innerHTML = `
-        <span class="scenario-list-title">${s.title}</span>
-        ${timeLabel ? `<span class="scenario-list-meta">${timeLabel}</span>` : ''}
+        <div class="scenario-list-body">
+          <span class="scenario-list-title">${s.title}</span>
+          ${timeLabel ? `<span class="scenario-list-meta">${timeLabel}</span>` : ''}
+        </div>
+        <button class="scenario-delete-btn" aria-label="Delete scenario" title="Delete">&times;</button>
       `;
       li.addEventListener('click', () => loadScenario(s.filename));
       li.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           loadScenario(s.filename);
+        }
+      });
+      li.querySelector('.scenario-delete-btn').addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const res = await fetch(`/scenarios/${s.filename}`, { method: 'DELETE' });
+        if (!res.ok) return;
+        li.remove();
+        // Clear main view if the deleted scenario was active
+        if (state.currentScenarioFile === s.filename) {
+          state.currentScenarioFile = null;
+          els.splitView.innerHTML = '';
+          els.dialogueView.innerHTML = '';
+          state.perspectiveCount = 0;
+          state.dialogueCount = 0;
+          els.title.textContent = 'PRISM';
+          els.meta.textContent = 'The Stakeholder Simulator';
+          els.personaBar.innerHTML = '';
+          els.emptyState.classList.remove('hidden');
+          els.splitView.classList.add('hidden');
+          els.dialogueView.classList.add('hidden');
         }
       });
       els.scenarioList.appendChild(li);

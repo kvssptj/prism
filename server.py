@@ -241,6 +241,14 @@ async def get_scenario(filename: str):
     with open(filepath) as f:
         return JSONResponse(json.load(f))
 
+@app.delete("/scenarios/{filename}")
+async def delete_scenario(filename: str):
+    filepath = SCENARIOS_DIR / filename
+    if not filepath.exists() or not filepath.suffix == ".json":
+        return JSONResponse({"error": "not found"}, status_code=404)
+    filepath.unlink()
+    return JSONResponse({"deleted": True})
+
 # --- Generate (template engine) ---
 
 @app.post("/generate")
