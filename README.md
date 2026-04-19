@@ -1,14 +1,14 @@
-# PRISM — The Stakeholder Simulator
+# PRISM - The Stakeholder Simulator
 
-See every decision through every stakeholder's eyes. Paste a scenario and get perspectives from 8 organizational roles — instantly, with no API key required. Optionally connect Claude, OpenAI, or a local Ollama model for LLM-generated output.
+See every decision through every stakeholder's eyes. Paste a scenario and get perspectives from 8 organizational roles - instantly, with no API key required. Optionally connect Claude, OpenAI, or a local Ollama model for LLM-generated output.
 
-![PRISM — The Stakeholder Simulator](screenshots/home.png)
+![PRISM - The Stakeholder Simulator](screenshots/home.png)
 
 ---
 
 ## What it does
 
-You describe a product situation — a feature cut, a customer escalation, a launch decision — and PRISM generates:
+You describe a product situation - a feature cut, a customer escalation, a launch decision - and PRISM generates:
 
 - **Individual perspectives** from each stakeholder: what they're thinking, their strategic concern, and a concrete recommendation
 - **A simulated conversation** between stakeholders, including inner monologue (what they're thinking but not saying)
@@ -40,8 +40,8 @@ Each archetype has distinct concerns, vocabulary, dialogue openers, and inner th
 
 | Mode | What you get |
 |------|-------------|
-| **Perspectives** | Split-panel cards — each stakeholder's individual take |
-| **Conversation** | Simulated meeting — stakeholders respond in sequence |
+| **Perspectives** | Split-panel cards - each stakeholder's individual take |
+| **Conversation** | Simulated meeting - stakeholders respond in sequence |
 | **Full** | Both, in order |
 
 ---
@@ -75,7 +75,7 @@ No build step. No database. Scenarios are saved as JSON files in `scenarios/`.
 
 ## LLM providers
 
-By default, generation uses deterministic string templates — fast, offline, and zero cost. Click the lightning bolt icon in the toolbar to switch providers.
+By default, generation uses deterministic string templates - fast, offline, and zero cost. Click the lightning bolt icon in the toolbar to switch providers.
 
 ### Claude API
 Enter your [Anthropic API key](https://console.anthropic.com). Uses `claude-opus-4-6`.
@@ -92,7 +92,7 @@ ollama serve
 ```
 
 ### Claude Code bridge
-If you have [Claude Code](https://claude.ai/code) installed, the server automatically picks up queue items and runs them through the `claude` CLI. Click **Claude Code** in the input bar to queue a scenario — it appears in the sidebar within a few seconds.
+If you have [Claude Code](https://claude.ai/code) installed, the server automatically picks up queue items and runs them through the `claude` CLI. Click **Claude Code** in the input bar to queue a scenario - it appears in the sidebar within a few seconds.
 
 Settings (API keys, provider choice) are stored in `localStorage` only and sent to the server via a request header. Keys are never written to disk.
 
@@ -101,8 +101,8 @@ Settings (API keys, provider choice) are stored in `localStorage` only and sent 
 ## Architecture
 
 ```
-server.py          FastAPI app — routes, WebSocket, file watcher, queue processor
-templates.py       Deterministic stakeholder engine — no LLM
+server.py          FastAPI app - routes, WebSocket, file watcher, queue processor
+templates.py       Deterministic stakeholder engine - no LLM
 llm.py             LLM provider abstraction (Claude, OpenAI, Ollama, Claude Code)
 static/
   app.js           Frontend state, WebSocket client, rendering
@@ -112,7 +112,7 @@ scenarios/         Persisted scenario JSON files
 scenarios/.queue/  Queue directory for Claude Code bridge
 ```
 
-**How streaming works:** Generation writes a scenario JSON file incrementally in three phases — metadata, then perspectives one by one, then dialogue turns. A `watchdog` file watcher detects each write and broadcasts diffs over WebSocket. The frontend renders each chunk as it arrives with no polling.
+**How streaming works:** Generation writes a scenario JSON file incrementally in three phases - metadata, then perspectives one by one, then dialogue turns. A `watchdog` file watcher detects each write and broadcasts diffs over WebSocket. The frontend renders each chunk as it arrives with no polling.
 
 ### Scenario JSON shape
 
