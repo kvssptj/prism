@@ -2,7 +2,7 @@
 
 See every decision through every stakeholder's eyes. Paste a scenario and get perspectives from 8 organizational roles — instantly, with no API key required. Optionally connect Claude, OpenAI, or a local Ollama model for LLM-generated output.
 
-![PRISM UI showing split-panel perspectives from PM, Engineering, Sales, and CS](https://placeholder.example.com) <!-- replace with actual screenshot -->
+![PRISM — The Stakeholder Simulator](screenshots/home.png)
 
 ---
 
